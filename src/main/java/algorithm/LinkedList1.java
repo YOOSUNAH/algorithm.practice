@@ -5,10 +5,10 @@ import java.util.Scanner;
 //### 문제
 //정수를 저장하는 단일 링크드 리스트를 생성하고, 다음의 명령어들을 처리하는 프로그램을 작성하시오.
 //명령어는 다음과 같이 총 4가지이다.
-//[] addFront(X) : 정수 X를 리스트의 가장 앞에 삽입. (단, 1 ≤ X ≤ 100,000).
-//[] removeFront() : 리스트에서 가장 앞에 있는 정수를 삭제하고, 삭제된 수를 출력. 만약 리스트가 비어 있는 경우, -1을 출력.
-//[X] front() : 리스트의 가장 앞에 저장된 정수를 출력. 만약 리스트가 비어 있는 경우, -1을 출력.
-//[X] empty() : 리스트가 비어 있으면 1, 비어 있지 않으면 0을 출력.
+//addFront(X) : 정수 X를 리스트의 가장 앞에 삽입. (단, 1 ≤ X ≤ 100,000).
+//removeFront() : 리스트에서 가장 앞에 있는 정수를 삭제하고, 삭제된 수를 출력. 만약 리스트가 비어 있는 경우, -1을 출력.
+//front() : 리스트의 가장 앞에 저장된 정수를 출력. 만약 리스트가 비어 있는 경우, -1을 출력.
+//empty() : 리스트가 비어 있으면 1, 비어 있지 않으면 0을 출력.
 
 public class LinkedList1 {
 
@@ -93,13 +93,13 @@ public class LinkedList1 {
                 int M = Integer.parseInt(command.split(" ")[1]);
                 answerList.addFront(M);
             }
-            else if(command.startsWith("removeFront")){
+            else if(command.equals("removeFront")){
                 System.out.println(answerList.removeFront());
             }
-            else if(command.startsWith("front")){
+            else if(command.equals("front")){
                 System.out.println(answerList.front());
             }
-            else if(command.startsWith("empty")){
+            else if(command.equals("empty")){
                 System.out.println(answerList.empty());
             }
         }
