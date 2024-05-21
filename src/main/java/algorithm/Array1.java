@@ -1,3 +1,5 @@
+package algorithm;
+
 import java.util.Scanner;
 
 // at(i) : 배열의 인덱스 i에 저장된 양의 정수를 출력. 만약 원소가 없는 인덱스 i값이 주어지면 0을 출력
