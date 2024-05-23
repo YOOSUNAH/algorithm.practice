@@ -1,18 +1,17 @@
 package algorithm;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
-// enqueue(X) : 정수 X를 큐의 뒤에 삽입. 큐가 가득차서 넣을 수 없는 경우 'Full'을 출력한다. (단, 입력되는 숫자 X는 1 ∼ 9의 자연수이다.)
-// size() : 큐에 저장되어있는 정수의 개수를 출력.
-// isEmpty() : 큐가 비어 있으면 1, 비어 있지 않으면 0을 출력.
 public class Queue2_easy {
 
     static class Queue {
 
         LinkedList<Integer> list = new LinkedList();
 
-        public void enqueue(int X) {
+        public void add(int X) {
             list.add(X);
         }
 
@@ -27,34 +26,76 @@ public class Queue2_easy {
                 return 0;
             }
         }
+
+        public boolean empty() {
+            return list.isEmpty();
+        }
+
+        public int dequeue() {
+            int first = list.getFirst();
+            list.removeFirst();
+            return first;
+        }
+
+        public int comparePoint(int p1Point, int p2Point) {
+            if (p1Point > p2Point) {
+                return 1;
+            } else if (p1Point < p2Point) {
+                return 2;
+            }
+            else
+              return 0;
+        }
+
     }
 
     public static void main(String[] args) {
-
-        Queue stack = new Queue();
-
         Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
+        int T = sc.nextInt();
         sc.nextLine();
 
-        int N = sc.nextInt();
-        sc.nextLine();
-        for (int i = 0; i < N; i++) {
-            String command = sc.nextLine();
-            if (command.startsWith("enqueue")) {
-                int M = Integer.parseInt(command.split(" ")[1]);
+        for (int i = 0; i < T; i++) {
+            int N = sc.nextInt();
+            sc.nextLine();
 
-                if (stack.size() == size) {
-                    System.out.println("FULL");
-                } else {
-                    stack.enqueue(M);
+            String number1 = sc.nextLine();
+            String number2 = sc.nextLine();
+            Queue queue1 = new Queue();
+            Queue queue2 = new Queue();
+
+            addToQueue(number1, queue1);
+            addToQueue(number2, queue2);
+
+            int p1Point = 0;
+            int p2Point = 0;
+
+            while (!queue1.empty() && !queue2.empty()) {
+                // 비교하기
+                int p1 = queue1.dequeue();
+                int p2 = queue2.dequeue();
+
+                if (p1 > p2) {
+                    p1Point++;
+                } else if (p1 < p2) {
+                    p2Point++;
                 }
-            } else if (command.equals("size")) {
-                System.out.println(stack.size());
-            } else if (command.equals("isEmpty")) {
-                System.out.println(stack.isEmpty());
             }
+            System.out.println(queue1.comparePoint(p1Point, p2Point));
         }
     }
+
+    public static void addToQueue(String number, Queue queue) {
+        String[] arrS1 = number.split(" ");
+        List<Integer> numberList = new ArrayList<>();
+        for (String s : arrS1) {
+            numberList.add(Integer.parseInt(s));
+        }
+        for (int n : numberList) {
+            queue.add(n);
+        }
+
+    }
 }
+
+
 
