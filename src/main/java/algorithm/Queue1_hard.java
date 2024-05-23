@@ -64,7 +64,7 @@ public class Queue1_hard {
 
     public static void main(String[] args) {
 
-        Queue stack = new Queue();
+        Queue queue = new Queue();
 
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
@@ -77,26 +77,26 @@ public class Queue1_hard {
             if (command.startsWith("enqueue")) {
                 int M = Integer.parseInt(command.split(" ")[1]);
 
-                if (stack.size() == size) {
+                if (queue.size() == size) {
                     System.out.println("FULL");
                 } else {
-                    stack.enqueue(M);
+                    queue.enqueue(M);
                 }
             }
             else if (command.equals("dequeue")) {
-                    System.out.println(stack.dequeue());
+                    System.out.println(queue.dequeue());
             }
             else if (command.equals("size")) {
-                System.out.println(stack.size());
+                System.out.println(queue.size());
             }
             else if (command.equals("isEmpty")) {
-                System.out.println(stack.isEmpty());
+                System.out.println(queue.isEmpty());
             }
             else if (command.equals("front")) {
-                System.out.println(stack.front());
+                System.out.println(queue.front());
             }
             else if (command.equals("rear")) {
-                System.out.println(stack.rear());
+                System.out.println(queue.rear());
             }
         }
     }

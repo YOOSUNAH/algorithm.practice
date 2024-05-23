@@ -31,7 +31,7 @@ public class Queue1_easy {
 
     public static void main(String[] args) {
 
-        Queue stack = new Queue();
+        Queue queue = new Queue();
 
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
@@ -44,15 +44,15 @@ public class Queue1_easy {
             if (command.startsWith("enqueue")) {
                 int M = Integer.parseInt(command.split(" ")[1]);
 
-                if (stack.size() == size) {
+                if (queue.size() == size) {
                     System.out.println("FULL");
                 } else {
-                    stack.enqueue(M);
+                    queue.enqueue(M);
                 }
             } else if (command.equals("size")) {
-                System.out.println(stack.size());
+                System.out.println(queue.size());
             } else if (command.equals("isEmpty")) {
-                System.out.println(stack.isEmpty());
+                System.out.println(queue.isEmpty());
             }
         }
     }
