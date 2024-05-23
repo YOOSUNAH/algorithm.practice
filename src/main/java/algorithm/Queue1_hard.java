@@ -59,7 +59,6 @@ public class Queue1_hard {
 
         public boolean empty(){
             return list.isEmpty();
-//            return list.isEmpty() ? true : false;
         }
     }
 
