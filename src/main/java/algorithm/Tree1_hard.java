@@ -25,10 +25,10 @@ public class Tree1_hard {
                 System.out.println(-1);
                 return;
             }
-            tree.putIfAbsent(X, new ArrayList<>());
-            tree.get(X).add(Y);
-            tree.put(Y, new ArrayList<>());
-            depthMap.put(Y, depthMap.get(X) + 1);
+            tree.putIfAbsent(X, new ArrayList<>()); // 노드 X에 자식 List 생성
+            tree.get(X).add(Y); // 노드 X에 자식리스트에 Y 축
+            tree.put(Y, new ArrayList<>());  // 노드 Y에 대한 자식 list 추가
+            depthMap.put(Y, depthMap.get(X) + 1); // 노드 Y 깊이 설명 (X+1)
         }
 
         public void printChild(int X) {
@@ -37,10 +37,10 @@ public class Tree1_hard {
                 return;
             }
             List<Integer> children = tree.get(X);
-            if (children.isEmpty()) {
+            if (children.isEmpty()) { // 자식 노드가 없을 경우
                 System.out.println(0);
             } else {
-                for (int child : children) {
+                for (int child : children) { // 자식 노드 출력
                     System.out.print(child + " ");
                 }
                 System.out.println();
