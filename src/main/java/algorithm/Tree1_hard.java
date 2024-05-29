@@ -15,12 +15,13 @@ public class Tree1_hard {
 
         public Tree() {
             tree = new HashMap<>();
+            depthMap = new HashMap<>();
             tree.put(1, new ArrayList<>());
             depthMap.put(1, 0);  // 루트 노드 깊이 : 0
         }
 
         public void insert(int X, int Y) {
-            if (!tree.containsKey(X)) {
+            if (!tree.containsKey(X)) { // 부모 노드가 없을 경우
                 System.out.println(-1);
                 return;
             }
@@ -31,7 +32,7 @@ public class Tree1_hard {
         }
 
         public void printChild(int X) {
-            if (!tree.containsKey(X)) {
+            if (!tree.containsKey(X)) { // 노드가 없을 경우
                 System.out.println(-1);
                 return;
             }
@@ -48,7 +49,7 @@ public class Tree1_hard {
         }
 
         public void printDepth(int X) {
-            if (depthMap.containsKey(X)) {
+            if (!depthMap.containsKey(X)) { // 부모 노드가 없을 경우
                 System.out.println(-1);
             } else {
                 System.out.println(depthMap.get(X));
