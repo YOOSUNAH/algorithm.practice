@@ -41,17 +41,19 @@ public class BinarySearchTree1_easy {
         }
 
         private int[] findRec(Node root, int data, int depth){
-            if(root == null) return new int[]{0, 0};
+            if(root == null)
+                return new int[]{0, -1};
             if(root.data == data){
                 int degree = 0;
-                if(root.left != null) degree++;
-                if(root.right != null) degree++;
-                return new int[]{degree, depth};
+                if(root.left != null) degree++; // 왼쪽 자식 노드가 존재하면 +
+                if(root.right != null) degree++;  // 오른쪽 자식 노드가 존재하면 +
+                return new int[]{degree, depth}; // 노드의 차수(노드의 자식수)와 깊이
             }
-            if(data < root.data){
+            if(data < root.data){  // 왼쪽 서브 트리에서 재귀적으로 탐색
                 return findRec(root.left, data, depth + 1);
             }
-            else return findRec(root.right, data, depth + 1);
+            else  // 오른쪽 서브 트리에서 재귀적으로 탐색
+                return findRec(root.right, data, depth + 1);
         }
     }
 
@@ -74,8 +76,10 @@ public class BinarySearchTree1_easy {
 
             for (int i = 0; i < M; i++) {
                 int searchNum = sc.nextInt(); // 탐색할 노드의 입력  12 10 20
-                int[] result = bst.find(searchNum);
-                if (result[0] == 0 && result[1] == 0) {
+                int[] result = bst.find(searchNum);  // 노드의 차수(노드의 자식수)와 깊이
+
+                // 노드가 없는 경우 0을 출력한다.
+                if (result[1] == -1) {  // findRec 에서 노드가 null일때, {0, -1}을 반환하기 때문에
                     System.out.println(0);
                 }else{
                     System.out.println(result[0] + " " + result[1]);
