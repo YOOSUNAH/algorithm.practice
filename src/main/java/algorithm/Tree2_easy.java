@@ -20,7 +20,7 @@ public class Tree2_easy {
         public void insert(int X, int Y) {
             tree.putIfAbsent(X, new ArrayList<>()); // 노드 X에 자식 List 생성
             tree.putIfAbsent(Y, new ArrayList<>());
-            tree.get(X).add(Y); // 노드 X에 자식리스트에 Y 축
+            tree.get(X).add(Y); // 노드 X에 자식리스트에 Y 추가
         }
 
         public void printLeft(int node, List<Integer> result) {
