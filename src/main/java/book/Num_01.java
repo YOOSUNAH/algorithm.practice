@@ -2,7 +2,7 @@ package book;
 
 import java.util.Scanner;
 
-public class Num_01 {
+public class Num_01 { //백준에서는 Main으로 class명을 설정해야함.
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
