@@ -1,5 +1,6 @@
 package book;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Num_15_수정렬하기 {
@@ -31,8 +32,9 @@ public class Num_15_수정렬하기 {
             }
         }
 
-        for (int i = 0; i < N; i++) {
-            System.out.println(A[i]);
-        }
+//        for (int i = 0; i < N; i++) {
+//            System.out.println(A[i]);
+//        }
+        Arrays.stream(A).forEach(System.out::println);
     }
 }
