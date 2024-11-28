@@ -52,23 +52,23 @@ public class Num_21_버블소트프로그램2 {
             while(i <= middle && j <= rightEnd){
                 if(A[i] <= A[j]){
                     temp[k] = A[i];
-                    i++;
-
+                    i++; // 그대로 i만 이동
                 }else{
                     temp[k] = A[j];
                     j++;
-                    swapCount += (middle - i + 1);  // 왼쪽 배열의 남은 원소 개수만큼 swap 발생
+                    // 앞에 자신보다 큰 수 있는 경우 swap이 일어남
+                    swapCount += (middle - i + 1);
                 }
                 k++;
             }
 
-            // 왼쪽 배열 남은 요소 삽입
+            // 왼쪽 배열 남은 요소들 다 순차적으로 삽입
             while(i  <= middle){
                 temp[k] = A[i];
                 i++;
                 k++;
             }
-
+            // 오른쪽 배열 남은 요소들 다 순차적으로 삽입
             while(j <= rightEnd){
                 temp[k] = A[j];
                 j++;
