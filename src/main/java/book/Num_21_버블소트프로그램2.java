@@ -3,6 +3,7 @@ package book;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Num_21_버블소트프로그램2 {
 
@@ -13,8 +14,11 @@ public class Num_21_버블소트프로그램2 {
         int N = Integer.parseInt(br.readLine());
         int[] A = new int[N];
 
+
+        // 이렇게 해야 런타임 에러가 안남!
+        StringTokenizer st  = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            A[i] = Integer.parseInt(br.readLine());
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
         mergeSort(A, 0, A.length - 1);
