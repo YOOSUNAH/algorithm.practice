@@ -2,7 +2,7 @@ package book.bfs;
 
 import java.util.*;
 
-public class Num_26_DFS와BFS프로그램 {
+public class Num_27_미로탐색하기 {
 
     private static List<List<Integer>> A;
     private static boolean[] visited;
@@ -35,31 +35,7 @@ public class Num_26_DFS와BFS프로그램 {
 
         // visited 초기화
         visited = new boolean[N + 1];
-        System.out.println("DFS");
-        DFS(Start);
-        System.out.println();
-
-        // visited 초기화
-        visited = new boolean[N + 1];
-        System.out.println("BFS");
         BFS(Start);
-        System.out.println();
-
-    }
-
-    // DFS 구현하기
-    private static void DFS(int Node){
-        System.out.print(Node + " "); //  // 현재 노드를 방문했으므로 출력
-
-        // visted 배열에 현재 노드 방문하기
-        visited[Node] = true;
-
-        // 현재 노드에 연결된 모든 인접 노드를 확인
-        for (int i : A.get(Node)) {
-            if(!visited[i]){ //  아직 방문하지 않은 노드가 있으면, 재귀적으로 DFS 호출
-                DFS(i);
-            }
-        }
     }
 
     // BFS 구현하기
