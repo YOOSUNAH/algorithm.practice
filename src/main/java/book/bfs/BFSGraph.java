@@ -38,14 +38,16 @@ public class BFSGraph {
         private static void BFS(int start) {
             // 큐 생성 및 시작 노드 추가
             Queue<Integer> queue = new LinkedList<>();
-            queue.add(start); // 시작점 넣기
+            // 시작점 넣기
+            queue.add(start);
 
             // 방문 처리
             visited[start] = true;
 
             // 큐가 빌 때까지 반복
             while (!queue.isEmpty()) {
-                int node = queue.poll(); // 큐에서 노드 꺼내기
+                // 큐에서 노드 꺼내기
+                int node = queue.poll();
                 System.out.print(node + " "); // 노드 출력
 
                 // 인접 노드들 탐색

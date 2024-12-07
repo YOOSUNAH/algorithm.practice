@@ -1,69 +1,105 @@
-//package book.bfs;
-//
-//import java.util.*;
-//
-//public class Num_27_미로탐색하기 {
-//
-//    private static List<List<Integer>> A;
-//    private static boolean[] visited;
-//
-//    public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        int N  = sc.nextInt(); // 노드 개수
-//        int M  = sc.nextInt(); // 에지 개수
-//        int Start = sc.nextInt(); // 시작점
-//
-//        A = new ArrayList<>();
-//
-//        for (int i = 0; i <= N; i++) {
-//           A.add(new ArrayList<>());
-//        }
-//
-//        for (int i = 0; i < M; i++) {
-//            int s = sc.nextInt();
-//            int e = sc.nextInt();
-//
-//            A.get(s).add(e);
-//            A.get(e).add(s);
-//        }
-//
-//        // 방문할 수 있는 노드가 여러개일 경우에는 번호가 작은 것을 먼저 방문하기 위해 정렬하기
-//        for (int i = 1; i <= N; i++) {
-//            // 각 노드와 관련된 에지를 정렬하기
-//            Collections.sort(A.get(i));
-//        }
-//
-//        // visited 초기화
-//        visited = new boolean[N + 1];
-//        BFS(Start);
-//    }
-//
-//    // BFS 구현하기
-//    private static void BFS(int Node){
-//        // 큐 자료 구조에 시작 노드 삽입하기 (add 연산)
-//        Queue<Integer> queue = new LinkedList<Integer>();
-//        queue.add(Node);
-//
-//        // visted 배열에 현재 노드 방문하기
-//        visited[Node] = true;
-//
-//        // 큐가 빌 때까지 계속 탐색
-//        while(!queue.isEmpty()){
-//            // 큐에서 노드 데이터 가져오기  (poll연산)
-//            int nowNode = queue.poll();
-//            // 가져온 노드 출력하기
-//            System.out.print(nowNode + " ");
-//
-//            // 현재 노드의 연결 노드 중 미방문 노드를 큐에 삽입하고 방문 배열에 기록하기
-//            for(int i : A.get(nowNode)){
-//
-//                if(!visited[i]){
-//                    // 아직 방문하지 않은 노드를 큐에 넣고 방문 표시
-//                    visited[i] = true;
-//                    queue.add(i);
-//                }
-//            }
-//        }
-//
-//    }
-//}
+package book.bfs;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Num_27_미로탐색하기 {
+
+    // 1은 이동 할 수 있는 칸
+    // 0은 이동하 수 없는 칸
+    // 서로 인접한 칸으로만 이동할 수 있다 .
+    // 이동한 칸을 셀때는 시작 위치와 도착 위치를 포함한다.
+    // (1,1) ~ (4,6) ->15칸을 지나야 한다.
+    // (1,1) ~ (N, M) -> 지나야 하는 칸수의 최솟 값
+    // 코드에서는 (0,0) ~ (N - 1) ~ (M - 1)
+
+    // 인접한 칸의 숫자가 1이면서 아직 방문하지 않았다면 큐에 삽입
+    // 종료 지점(N, M)에서 BFS를 종료하며 깊이를 출력한다.
+    // (1,1) 에서 출발해 상, 하 , 좌, 우 순서로 노드를 큐에 삽입하며 방문 배열에 체크한다.
+
+    // N * M 짜리 미로
+    static int N; // row 행 -> 세로
+    static int M; // column 열 -> 가로
+    static int[][] A; // 미로 정보 저장
+    static boolean[][] visited;  // 방문 저장
+
+    // 상하 좌우를 탐색하기 위한 배열 선언하기
+    static int[] dN = {0, 1, 0,-1};  // row(세로) (아래로)
+    static int[] dM = {1, 0, -1, 0};  // column(가로) (오른쪽으로)
+    //인덱스 0 : dN[0], dM[0]은 (0, 1) 오른쪽 방향
+    //인덱스 1 : dN[1], dM[1]은 (1, 0) 아래 방향
+    //인덱스 2 : dN[2], dM[2]은 (0, -1) 왼쪽 방향
+    //인덱스 3 : dN[3], dM[3]은 (-1, 0) 위쪽 방향
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken()); // row
+        M = Integer.parseInt(st.nextToken()); // column
+        A = new int[N][M];
+        visited = new boolean[N][M];
+
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine()); //  101111
+            String line = st.nextToken();  // "101111"
+
+            for (int j = 0; j < M; j++) {
+                A[i][j] = Integer.parseInt(line.substring(j, j + 1)); // 1글자씩 잘라 숫자로 변환 후 배열에 저장
+                //j = 0: line.substring(0, 1) → "1"
+                //j = 1: line.substring(1, 2) → "0"
+                //j = 2: line.substring(2, 3) → "1"
+            }
+        }
+
+        BFS(0, 0);
+        System.out.println(A[N - 1][M - 1]);
+    }
+
+
+    public static void BFS(int i, int j){
+        Queue<int[]> queue = new LinkedList<>();
+        // 큐에 시작 노드 삽입 : 시작점 (0, 0)
+        queue.offer(new int[]{i, j});
+
+        //  방문 처리
+        visited[i][j] = true;
+
+        // 큐가 비어있을 때까지
+        while (!queue.isEmpty()) {
+
+            // 큐에서 현재 좌표를 꺼냄
+            int[] now = queue.poll();
+            int x = now[0]; // 현재 행
+            int y = now[1]; // 현재 열
+
+            for (int k = 0; k < 4; k++) { // 상, 하, 좌, 우 탐색
+                int nx = x + dN[k];
+                int ny = y + dM[k];
+                //    int[] dN = {0, 1, 0,-1};  // row(세로) (아래로)
+                //    int[] dM = {1, 0, -1, 0};  // column(가로) (오른쪽으로)
+                //    //인덱스 0 : dN[0], dM[0]은 (0, 1) 오른쪽 방향
+                //    //인덱스 1 : dN[1], dM[1]은 (1, 0) 아래 방향
+                //    //인덱스 2 : dN[2], dM[2]은 (0, -1) 왼쪽 방향
+                //    //인덱스 3 : dN[3], dM[3]은 (-1, 0) 위쪽 방향
+
+                if (nx >= 0 && ny >= 0 && nx < N && ny < M) { // 유효한 좌표인지 확인
+
+                    // 이동 가능  : 숫자1이고 & 방문하지 않은 칸
+                    if (A[nx][ny] == 1 && !visited[nx][ny]) {
+
+                        visited[nx][ny] = true;            // 방문 처리
+
+                        A[nx][ny] = A[x][y] + 1;          // 이동 거리 기록 (그전에서 + 1)
+                        // (A[1][0] = A[0][0] + 1)
+
+                        queue.offer(new int[]{nx, ny});   // 다음 칸을 큐에 추가
+                    }
+                }
+            }
+        }
+
+    }
+}
