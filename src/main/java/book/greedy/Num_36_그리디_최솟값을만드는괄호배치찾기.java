@@ -1,4 +1,4 @@
-package book;
+package book.greedy;
 
 import java.util.Scanner;
 /*
